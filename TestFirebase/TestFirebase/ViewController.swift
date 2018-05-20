@@ -40,5 +40,12 @@ class ViewController: UIViewController {
         let defaultPlace = DBRef.child("user/01/age")
         defaultPlace.observe(.value) { (snap: DataSnapshot) in self.ageLabel.text = (snap.value! as AnyObject).description}
     }
+    
+    // 要素の更新
+    @IBAction func testRenew(_ sender: Any) {
+        let data = ["neme": testField.text!]
+        DBRef.child("user/01").updateChildValues(data)
+    }
+    
 }
 
