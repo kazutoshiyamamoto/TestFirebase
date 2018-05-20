@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // 要素の追加（年齢を入力する前提）
+    // 要素（年齢）の追加
     @IBAction func addtest(_ sender: Any) {
         let age: Int = Int(testField.text!)!
         let data = ["age": age]
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
     
     // 要素（名前）の更新
     @IBAction func testRenew(_ sender: Any) {
-        let data = ["neme": testField.text!]
+        let data = ["name": testField.text!]
         DBRef.child("user/01").updateChildValues(data)
     }
     
@@ -51,7 +51,5 @@ class ViewController: UIViewController {
     @IBAction func testRemove(_ sender: Any) {
         DBRef.child("user/01/name").removeValue()
     }
-    
-    
 }
 
