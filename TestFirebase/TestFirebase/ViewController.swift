@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // 要素の追加
+    // 要素の追加（年齢を入力する前提）
     @IBAction func addtest(_ sender: Any) {
         let age: Int = Int(testField.text!)!
         let data = ["age": age]
@@ -41,11 +41,17 @@ class ViewController: UIViewController {
         defaultPlace.observe(.value) { (snap: DataSnapshot) in self.ageLabel.text = (snap.value! as AnyObject).description}
     }
     
-    // 要素の更新
+    // 要素（名前）の更新
     @IBAction func testRenew(_ sender: Any) {
         let data = ["neme": testField.text!]
         DBRef.child("user/01").updateChildValues(data)
     }
+    
+    // 要素（名前）の削除
+    @IBAction func testRemove(_ sender: Any) {
+        DBRef.child("user/01/name").removeValue()
+    }
+    
     
 }
 
