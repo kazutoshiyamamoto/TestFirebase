@@ -11,16 +11,19 @@ import Firebase
 
 class ViewController: UIViewController {
     
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
-        -> Bool {
-            FirebaseApp.configure()
-            return true
-    }
-
+    @IBOutlet weak var testField: UITextField!
+    @IBOutlet weak var ageLabel: UILabel!
+    
+    
+    // インスタンス変数
+    var DBRef: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        // インスタンスを作成
+        DBRef = Database.database().reference()
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,6 +31,14 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    // 要素の追加
+    @IBAction func addtest(_ sender: Any) {
+        let age: Int = Int(testField.text!)!
+        let data = ["age": age]
+        DBRef.child("user/01").setValue(data)
+        
+        let defaultPlace = DBRef.child("user/01/age")
+        defaultPlace.observe(.value) { (snap: DataSnapshot) in self.ageLabel.text = (snap.value! as AnyObject).description}
+    }
 }
 
